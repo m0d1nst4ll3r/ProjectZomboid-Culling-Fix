@@ -20,19 +20,19 @@ The folder that contains the files to replace is `java\zombie\popman` for server
 
 ### Culling fix:
 
-| File                      | Line  | Comment                                                                                                                     |
-| ------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------- |
-| ZombieCountOptimiser.java | 5-7   | removed useless includes                                                                                                    |
-| ZombieCountOptimiser.java | 10-12 | removed useless variables                                                                                                   |
-| ZombieCountOptimiser.java | 16    | emptied main offending function (updates count of zombies to delete)                                                        |
-| ZombieCountOptimiser.java | 20-29 | emptied secondary function in which the if should never trigger anyway, for cleanliness                                     |
-| NetworkZombiePacker.java  | 61-67 | removed part of loop that deletes zombies upon client request                                                               |
+| File                      | Line  | Comment                                                              |
+| ------------------------- | ----- | -------------------------------------------------------------------- |
+| ZombieCountOptimiser.java | 5-7   | removed useless includes                                             |
+| ZombieCountOptimiser.java | 10-12 | removed useless variables                                            |
+| ZombieCountOptimiser.java | 16    | emptied main offending function (updates count of zombies to delete) |
+| ZombieCountOptimiser.java | 20-29 | emptied secondary function for cleanliness                           |
+| NetworkZombiePacker.java  | 61-67 | removed part of loop that deletes zombies upon client request        |
 
 ### Stales fix:
 
-| File                      | Line  | Comment                                                                                                                     |
-| ------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------- |
-| NetworkZombiePacker.java  | 232   | added function call to update square lists of zombies                                                                       |
+| File                      | Line  | Comment                                               |
+| ------------------------- | ----- | ----------------------------------------------------- |
+| NetworkZombiePacker.java  | 232   | added function call to update square lists of zombies |
 
 # How This Works
 
@@ -44,7 +44,7 @@ Zombie disappearances have 2 separate causes:
 
 Project Zomboid is a game plagued with performance issues. Framerate is often very low in singleplayer. Multiplayer does not escape from this problem and it is made even worse: servers have to worry about multiplicative performance issues as players pile up in numbers, and the effects are not only felt as FPS drops but also *network lag*.
 
-For this reason, Zomboid devs have opted to implement a purposeful limit of 500 zombies around any player. This is a hardcoded limit and there is no way to change it from inside - or outside - the game without hacking the code. If more than 500 zombies are present around a player, they will slowly be permanently removed until only 500 are left.
+For this reason, Zomboid devs have opted to implement a purposeful limit of 500 zombies around any player. This is a hardcoded limit and there is no way to change it from inside - or outside - the game without hacking the code. If more than 500 zombies are present around a player, they will slowly be *permanently* removed until only 500 are left.
 
 The main issue we players have with this hidden limitation is that for many, Project Zomboid's entire point is to face overwhelming adversity, fight against hopeless odds and be slowly driven to the edge. For many, this means the world needs to be filled with the constant threat of masses of zombies.
 
@@ -54,7 +54,7 @@ It would appear zombie culling deletes *older zombies first*. This means while r
 
 Because the edge of the "render area" where new zombies appear is much farther than the edge of the area visible to the player, with a higher population setting and once zombie culling has taken effect, the player is often left with no zombies in sight - the remaining 500 ones being mostly out of sight at the edge of the render area.
 
-Players are left with no option but to lower population settings in multiplayer until zombie culling does not take effect anymore. Unfortunately, even at default, x1 population settings, culling will still take effect in some denser areas of the world, such as the mall, or when events trigger exodes of zombies, such as car or house alarms.
+Players are left with no option but to lower population settings in multiplayer until zombie culling does not take effect anymore. Unfortunately, even on the default, x1 population settings, culling will still take effect in some denser areas of the world, such as the mall, or when events trigger exoduses of zombies, such as car or house alarms.
 
 When asking developers to provide us a way to explore the performance impact of higher population settings, we the players were met with distrust and refusal. The only hope was for the change to maybe be bundled in an upcoming update. Because the release schedule of this game is so slow (once every 2 years!), we took it upon ourselves to fix the issue any way we could.
 
@@ -69,6 +69,8 @@ The clients can be stopped in their counting so that they never request anything
 Both fixes are available here as a solution both for server owners who want to fix the issue for everyone, and players who want to fix the issue for themselves should a server be unpatched, and also make sure they don't suffer from the extra useless load of constantly counting zombies up.
 
 Do note that if playing on an unpatched server as a patched client, all other non-patched clients will still send culling requests to the server and if such an unpatched client (player) were to come close to the player, some zombies would get culled anyway, albeit at a slower rate.
+
+&nbsp;
 
 ### Stales explanation:
 
@@ -86,6 +88,10 @@ This bug only affects multiplayer because it is only present in *serverside* cod
 
 The reason the server deletes a zombie when its origin chunk unloads is because the server *never properly updates the zombie's position on the world squares*. As such, only the originating square ever keeps the zombie in its "list of things that are standing on me right now". No other squares that the zombie passes through update their lists.
 
+When the servers unloads a chunk (because no player is close enough, to save on memory), it will therefore remove all the zombies *originating from this chunk*, believing that they are still there.
+
+&nbsp;
+
 The fix involves adding instructions to serverside code to properly update squares with zombies passing over them. Thanksfully, as the groundswork has already been laid out, this is done by just adding the right function call in the right place (only one line added).
 
 Because the source of the issue is serverside code, this can only be fixed for *servers*, unlike zombie culling which can be fixed for both.
@@ -93,6 +99,12 @@ Because the source of the issue is serverside code, this can only be fixed for *
 As a final note, the fix allows servers to properly update position *for zombies that are simulated by players*. The zombies that are simulated by the server will still not properly update the squares they walk over. This, however, is a rare occurence and should not negatively affect the players' experience.
 
 # FAQ
+
+### Do I need to re-replace the files often?
+
+Not for now. The files are reverted back to the original ones whenever you verify file integrity with steam, or whenever The Indie Stone releases an update. Thanksfully they release updates very rarely and they will probably fix these issues on their side in the next big update.
+
+When the devs resume releasing updates and if they don't fix it on their side, you will have to re-replace the files regularly.
 
 ### Why are there two files? Which one do I use?
 
@@ -108,7 +120,11 @@ In the normal game install. If you run a server from the in-game interface, it w
 
 ### How do I find my game files?
 
-Open Steam, Library, right-click Project Zomboid, Manage -> Browse local files.
+1. Open your Steam Library
+
+1. Right-click Project Zomboid
+
+1. Manage -> Browse local files.
 
 ### My server is hosted on this website, how do I access its files?
 
@@ -174,7 +190,7 @@ The requirements for this fix to be manually installed do not go hand in hand wi
 
 Along with this initial problem, when releasing the second serverside fix months later which also addressed the stales issue, Nippytime was unavailable to update the mod for a time. He then expressed the wish for a new mod to be created separate from his.
 
-This github repository was created as a better alternative to both the workshop mod (which requires digging through obscure folders) and mega.nz links (which raises more red flags for people), and a way for everyone to clearly see the java code laid out and have a chance at compiling it themselves, for better transparency.
+This github repository was created as a better alternative to both the workshop mod (which requires digging through obscure folders) and mega.nz links (which looks like an untrustworthy website), and a way for everyone to clearly see the java code laid out and have a chance at compiling it themselves, for better transparency.
 
 # Additonal Links
 
@@ -185,3 +201,5 @@ See https://steamcommunity.com/sharedfiles/filedetails/?id=2896255721 for an old
 See https://theindiestone.com/forums/index.php?/topic/64889-stale-zombies/ for the stales bug report and investigation on official Project Zomboid forums.
 
 See https://steamcommunity.com/app/108600/discussions/6/3364775232101137232/ for the culling bug report and investigation on the Project Zomboid steam forums (since locked by a TIS employee).
+
+See https://youtu.be/8Bhjr9pMjGo for an explanatory video of the issues and the fix
