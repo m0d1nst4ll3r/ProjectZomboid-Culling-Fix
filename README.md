@@ -192,7 +192,7 @@ Along with this initial problem, when releasing the second serverside fix months
 
 This github repository was created as a better alternative to both the workshop mod (which requires digging through obscure folders) and mega.nz links (which looks like an untrustworthy website), and a way for everyone to clearly see the java code laid out and have a chance at compiling it themselves, for better transparency.
 
-# Additonal Links
+# Additional Links
 
 See https://steamcommunity.com/sharedfiles/filedetails/?id=3115293671 for the steam mod of this fix. Note that the fix still requires manual installation - steam will not allow replacing game files automatically.
 
