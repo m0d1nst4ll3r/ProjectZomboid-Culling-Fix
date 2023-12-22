@@ -26,6 +26,8 @@ The folder that contains the files to replace is `java\zombie\popman` for server
 | ZombieCountOptimiser.java | 10-12 | removed useless variables                                            |
 | ZombieCountOptimiser.java | 16    | emptied main offending function (updates count of zombies to delete) |
 | ZombieCountOptimiser.java | 20-29 | emptied secondary function for cleanliness                           |
+| NetworkZombiePacker.java  | 8     | removed useless include                                              |
+| NetworkZombiePacker.java  | 18    | removed useless include                                              |
 | NetworkZombiePacker.java  | 61-67 | removed part of loop that deletes zombies upon client request        |
 
 ### Stales fix:
