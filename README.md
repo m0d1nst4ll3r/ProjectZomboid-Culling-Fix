@@ -102,6 +102,32 @@ As a final note, the fix allows servers to properly update position *for zombies
 
 # FAQ
 
+### How do I find my game files?
+
+1. Open your Steam Library
+
+1. Right-click Project Zomboid
+
+1. Manage -> Browse local files.
+
+### There is no zombie folder?
+
+Make sure you are looking at the root of the game installation (you should be inside a folder called something like "ProjectZomboid"). For servers, the zombie folder is located inside the *java* folder so go there first.
+
+### There is no java folder?
+
+I was made aware that the server hosting platform "G-Portal" previously *hid* the java folder from its users for some reason. It might or might not have been fixed by now, if not, on your ftp app input `java\zombie\popman` as file path as *java* might be hidden but its sub-folders are not.
+
+If this doesn't fix your issue or you're on another server hosting platform, contact them first.
+
+### I don't have a dedicated server, I run my server from the game, where do I drop the files?
+
+In the normal game install. If you run a server from the in-game interface, it will use the files in your game install. Reminder: `zombie\popman`
+
+### My server is hosted on this website, how do I access its files?
+
+Typically by using a ftp app like FileZilla and inputting the ftp address provided by the website.
+
 ### Do I need to re-replace the files often?
 
 Not for now. The files are reverted back to the original ones whenever you verify file integrity with steam, or whenever The Indie Stone releases an update. Thanksfully they release updates very rarely and they will probably fix these issues on their side in the next big update.
@@ -115,32 +141,6 @@ Use both. Replace both. It is just simpler this way.
 One is used for servers (`NetworkZombiePacker`), the other for clients (`ZombieCountOptimiser`). However, it doesn't hurt to have both and makes for simpler instructions for everyone.
 
 The reason there are two files is simply because not all the code is located in the same file. To fix every issue, we have to replace both.
-
-### I don't have a dedicated server, I run my server from the game, where do I drop the files?
-
-In the normal game install. If you run a server from the in-game interface, it will use the files in your game install. Reminder: `zombie\popman`
-
-### How do I find my game files?
-
-1. Open your Steam Library
-
-1. Right-click Project Zomboid
-
-1. Manage -> Browse local files.
-
-### My server is hosted on this website, how do I access its files?
-
-Typically by using a ftp app like FileZilla and inputting the ftp address provided by the website.
-
-### There is no zombie folder?
-
-Make sure you are looking at the root of the game installation (you should be inside a folder called something like "ProjectZomboid"). For servers, the zombie folder is located inside the *java* folder so go there first.
-
-### There is no java folder?
-
-I was made aware that the server hosting platform "G-Portal" previously *hid* the java folder from its users for some reason. It might or might not have been fixed by now, if not, on your ftp app input `java\zombie\popman` as file path as *java* might be hidden but its sub-folders are not.
-
-If this doesn't fix your issue or you're on another server hosting platform, contact them first.
 
 ### What is this "client" you keep talking about?
 
