@@ -32,7 +32,7 @@ The folder that contains the files to replace is `java\zombie\popman` for server
 
 | File                      | Line  | Comment                                               |
 | ------------------------- | ----- | ----------------------------------------------------- |
-| NetworkZombiePacker.java  | 232   | added function call to update square lists of zombies |
+| NetworkZombiePacker.java  | 251   | added function call to update square lists of zombies |
 
 # How This Works
 
