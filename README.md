@@ -172,7 +172,7 @@ For decompiling the entire game, look at the beautiful-java tool https://github.
 
 ### How can I compile the java files myself?
 
-You need to have java 17.0.8 installed somewhere as PZ needs an older java version to compile. We provided the right javac.exe file for you, which should work right off the bat. Or, you can get it from https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html (TODO: verify it doesn't need the entire folder, if so add folder)
+You need to have java 17.0.8 installed somewhere as PZ needs an older java version to compile. You can get it from https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 
 Once you've installed java 17.0.8 and downloaded the java files to compile, locate your javac.exe and run the following command:
 
